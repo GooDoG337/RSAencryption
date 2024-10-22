@@ -1,0 +1,3 @@
+/home/shishik4life/Codes/cmake-build-debug/CMakeFiles/Codes.dir
+/home/shishik4life/Codes/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/shishik4life/Codes/cmake-build-debug/CMakeFiles/rebuild_cache.dir
