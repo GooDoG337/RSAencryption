@@ -5,42 +5,69 @@
 #include <string>
 
 
-std::vector<char> Multiplicate(const std::vector<char>& FirstOne, std::vector<char>& SecondOne) {
-    std::vector<char> result;
+std::vector<char> Multiplicate(std::vector<char>& FirstOne, std::vector<char>& SecondOne) {
+    std::vector<int> result;
+    std::vector<char> FixedResult;
     result.resize(FirstOne.size()+SecondOne.size());
     for(int GOOAL = 0; !SecondOne.empty(); GOOAL++) {
         size_t indx = 1;
         while(indx != FirstOne.size()+1) {
-            result[result.size()-indx-GOOAL] += (FirstOne[FirstOne.size()-indx]-48)*(SecondOne[SecondOne.size()-1]-48);
+            result[result.size()-indx-GOOAL] += (FirstOne[FirstOne.size()-indx])*(SecondOne[SecondOne.size()-1]);
             indx++;
         }
         SecondOne.pop_back();
+
     }
     for(size_t indx = result.size()-1; indx != 0; indx--) {
         result[indx-1] += result[indx] / 10;
         result[indx] %= 10;
     }
     if(result[0] == 0) result.erase(result.begin());
-    return result;
+    for(const int elm:result) {
+        FixedResult.push_back(elm);
+    }
+    result.clear();
+    return FixedResult;
 }
 
-bool IsOneBiggerOrEqualsTwo(const std::vector<char>& First, const std::vector<char>& Second) {
-    if(First.size() > Second.size()) return true;
-    else if(Second.size() > First.size()) return false;
+bool IsOneBiggerTwo(const std::vector<char>& First, const std::vector<char>& Second) {
+    if(First.size() > Second.size()) {
+        return true;
+    }
+    else if(Second.size() > First.size()) {
+        return false;
+    }
     else if(Second.size() == First.size()) {
         for(int i = 0; i < First.size(); i++) {
-            if(First[i] > Second[i]) return true;
-            else if(Second[i] > First[i]) return false;
+            if(First[i] > Second[i]) {
+                return true;
+            }
+            else if(Second[i] > First[i]) {
+                return false;
+            }
         }
+    }
+    return false;
+}
+
+bool IsEqual(const std::vector<char>& First, const std::vector<char>& Second) {
+    if(First.size() == Second.size()) {
+        for(int i = 0; i < First.size(); i++) {
+            if(First[i] != Second[i]) {
+                return false;
+            }
+        }
+    }
+    else {
+        return false;
     }
     return true;
 }
-
-std::vector<char> Minus(const std::vector<char>& FirstOne, const std::vector<char>& SecondOne) {
+std::vector<char> Minus(std::vector<char>& FirstOne, std::vector<char>& SecondOne) {
     std::vector<char> result;
     int x;
     for(x = FirstOne.size()-1; x > SecondOne.size()-1; x--) {
-        result.push_back(FirstOne[FirstOne.size()-1-x]-48);
+        result.push_back(FirstOne[FirstOne.size()-1-x]);
     }
     for(x; x >= 0; x--) {
         result.push_back(FirstOne[FirstOne.size()-1-x]-SecondOne[SecondOne.size()-1-x]);
@@ -52,72 +79,86 @@ std::vector<char> Minus(const std::vector<char>& FirstOne, const std::vector<cha
             result[i-1]-=1;
         }
     }
+    //while(result[0] == 0) result.erase(result.begin());
     return result;
 }
 int main() {
     //Тут какой-то ужас по умножению чисел
-    std::vector<char> a1 {'8','7','7','3','2','1','9','5','8','9'};
-    std::vector<char> b1 {'3'};
-    a1 = Multiplicate(a1,b1);
-    for(const int& elm:a1) {
+    std::cout << "Guess, now we are doing multiplication?\n";
+    std::vector<char> a1 {7,3,0,5,5,5,5,5,5,5,5,5,5,5,5};
+    std::vector<char> b1 {7,3,0,5,5,5,5,5,5,5,5,5,5,5,5};
+    for(const int& elm:Multiplicate(a1,b1)) {
         std::cout << elm;
     }
     std::cout << '\n';
 
 
-    /*//А тут какой-то ужас по попытке в деления
-    std::vector<char> a2 {'9','4','2'};
-    std::vector<char> b2 {'2'};
-    std::cout << a2[0] << std::endl;
-    //a2[0] = (a2[0]-48)-(a2[0]-48)*(b2[0]-48);
-    if(int(a2[0]-48)/int(b2[0]-48) == 0) {
-        std::cout << "Well, that's ****** up\n";
+    //А тут какой-то ужас по попытке в деления
+    //24.10, тут всё ещё ужас
+    std::cout << "Guess, now we are doing F.E.A.R. 4?\n";
+    std::vector<char> a2 {3,0,0};
+    std::vector<char> b2 {5};
+    //a2[0] - b2[0] ровно 0!!! РАЗ
+    //пишем 0 В ОТВЕТ
+    //затем смотрим число v{a2[0], a2[1]}
+    //v - b2[0] ровно 6 РАЗ
+    //a2[0],a2[1] = v[0] v[1], должно как-то вйыти 000
+    //переходим к a[1]
+    //РОВНО 0 ну я понял да наверно
+    std::vector<char> temp {a2[0]};
+    std::vector<char> answer;
+    int temp777;
+    while(IsOneBiggerTwo(temp, b2) || IsEqual(temp, b1)) {
+        temp = Minus(temp,b2);
+        temp777++;
     }
-
-    std::cout << " W3LL " << (a2[0]-48)/(b2[0]-48);
-    if((a2[0]-48)%(b2[0]-48)!=0) {
-        std::cout << "STUPID ******* ****\n";
-        std::cout << "Let's think what about " << ((a2[0]-48)%(b2[0]-48)*10+(a2[1]-48));
-    }
-    std::cout << " W3LL " << (a2[1]-48)/(b2[0]-48);
-    if((a2[1]-48)%(b2[0]-48)!=0) {
-        std::cout << "STUPID ******* ****\n";
-    }
-    std::cout << " W3LL " << (a2[2]-48)/(b2[0]-48);
-    if((a2[2]-48)%(b2[0]-48)!=0) {
-        std::cout << "STUPID ******* ****\n";
+    answer.insert(answer.begin(), temp777);
+    temp777 = 0;
+    temp.push_back(a2[1]);
+    for(int elm:temp) {
+        std::cout << elm;
     }
     std::cout << '\n';
-*/
+    std::cout << "Guess, now we are doing F.E.A.R. 4?\n";
+    while(IsOneBiggerTwo(temp, b2) || IsEqual(temp, b1)) {
+    temp = Minus(temp,b2);
+        temp777++;
+    }
+    std::cout << "Guess, now we are doing F.E.A.R. 4?\n";
+
+
 
     std::cout << "Guess, now we are doing minus?\n";
-    //Попытка в альтернативное деление (минус, минус и ещё раз минус)
-    std::vector<char> a3 {'8','3','3'};
-    std::vector<char> b3 {'1','0','0'};
-    while(IsOneBiggerOrEqualsTwo(a3,b3)) {
-        for(char elm:a3) {
-            std::cout << elm;
-        }
-        std::cout << " AND ";
-        for(char elm:b3) {
-            std::cout << elm;
-        }
-        std::cout << '\n';
-        a3 = Minus(a3,b3);
-        for(int elm:a3) {
-            std::cout << elm;
-        }
-        std::cout << '\n';
+    //Попытка в вычитание (ДАЖЕ НЕ ДУМАЙ ДЕЛАТЬ ИЗ ЭТОГО ДЕЛЕНИЕ)
+    std::vector<char> a3 {8,9,1,4,5,7,2,8,2,5,3,1,6};
+    std::vector<char> b3 {3,2,5,1,1};
+    for(int elm: Minus(a3,b3)) {
+        std::cout << elm;
     }
+    std::cout << '\n';
 
     //А тут начинается полный ужас по шифрованию, который вынуждает перейти к умножеинию и делению
     std::cout << '\n';
-    int p = 64289;
-    int q = 4621;
-    int N = p*q;
-    int Fi = (p-1)*(q-1);
-    int e = 13;
-    int a = Fi,b = e;
+    std::cout << "SUFFER\n";
+    std::vector<char> P {1,9};
+    std::vector<char> Q {4,1};
+    std::vector<char> Q2 = Q;
+    std::vector<char> N= Multiplicate(P,Q);
+    std::cout << "N IS REALLY ****** UP: ";
+    for(int elm:N) {
+        std::cout << elm;
+    }
+    std::cout << '\n';
+    std::vector<char> ONE {1};
+    std::vector<char> M1 = Minus(P,ONE);
+    std::vector<char> M2 = Minus(Q2,ONE);
+    std::vector<char> Fi = Multiplicate(M1, M2);
+    std::vector<char> e = {6,9,1};
+    for(int elm:Fi) {
+        std::cout << elm;
+    }
+    std::cout << '\n';
+    /*int a = Fi,b = e;
     int x1=0, x2=1, y1=1, y2=0;
     while(b>0) {
         int qq = a/b;
@@ -135,7 +176,7 @@ int main() {
     if(x2 > y2) { d = Fi - fabs(y2); }
     else { d = Fi - fabs(x2); }
     std::vector<int> result;
-    std::string ToEncrypt {"Hello"};
+    std::string ToEncrypt {"Killing my love"};
     for(const auto& elm:ToEncrypt) {
         int temp3 = elm%N;
         for(int i = 1; i < e; i++) {
@@ -162,6 +203,6 @@ int main() {
     }
     for(auto elm:Decrypted) {
         std::cout << elm;
-    }
+    }*/
     return 0;
 }
