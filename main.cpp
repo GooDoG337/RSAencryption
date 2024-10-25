@@ -30,14 +30,20 @@ std::vector<char> Multiplicate(std::vector<char>& FirstOne, std::vector<char>& S
     return FixedResult;
 }
 
-bool IsOneBiggerTwo(const std::vector<char>& First, const std::vector<char>& Second) {
+bool IsOneBiggerTwo(std::vector<char>& First, std::vector<char>& Second) {
+    while(First[0] == 0) First.erase(First.begin());
+    while(Second[0] == 0) Second.erase(Second.begin());
     if(First.size() > Second.size()) {
         return true;
     }
     else if(Second.size() > First.size()) {
         return false;
     }
+
     else if(Second.size() == First.size()) {
+        if(First.empty()) {
+            return false;
+        }
         for(int i = 0; i < First.size(); i++) {
             if(First[i] > Second[i]) {
                 return true;
@@ -63,7 +69,7 @@ bool IsEqual(const std::vector<char>& First, const std::vector<char>& Second) {
     }
     return true;
 }
-std::vector<char> Minus(std::vector<char>& FirstOne, std::vector<char>& SecondOne) {
+std::vector<char> Minus(const std::vector<char>& FirstOne, const std::vector<char>& SecondOne) {
     std::vector<char> result;
     int x;
     for(x = FirstOne.size()-1; x > SecondOne.size()-1; x--) {
@@ -79,7 +85,7 @@ std::vector<char> Minus(std::vector<char>& FirstOne, std::vector<char>& SecondOn
             result[i-1]-=1;
         }
     }
-    //while(result[0] == 0) result.erase(result.begin());
+    while(result[0] == 0 && result.size() > 0) result.erase(result.begin());
     return result;
 }
 int main() {
@@ -96,35 +102,125 @@ int main() {
     //А тут какой-то ужас по попытке в деления
     //24.10, тут всё ещё ужас
     std::cout << "Guess, now we are doing F.E.A.R. 4?\n";
-    std::vector<char> a2 {3,0,0};
-    std::vector<char> b2 {5};
-    //a2[0] - b2[0] ровно 0!!! РАЗ
-    //пишем 0 В ОТВЕТ
-    //затем смотрим число v{a2[0], a2[1]}
+    std::vector<char> a2 {7,4,2};
+    std::vector<char> b2 {3};
     //v - b2[0] ровно 6 РАЗ
     //a2[0],a2[1] = v[0] v[1], должно как-то вйыти 000
     //переходим к a[1]
     //РОВНО 0 ну я понял да наверно
     std::vector<char> temp {a2[0]};
     std::vector<char> answer;
-    int temp777;
+    int temp777 = 0;
+    //a2[0] - b2[0] ровно 0!!! РАЗ
+    while(IsOneBiggerTwo(temp, b2)) {
+        temp = Minus(temp,b2);
+        while(temp[0] == 0 && temp.size() > 0) temp.erase(temp.begin());
+        temp777++;
+    }
+    if(IsEqual(temp, b2)) {
+        temp = Minus(temp,b2);
+        temp777++;
+    }
+    for(int elm: temp) {
+        std::cout << elm << " FUCK ";
+    }
+    std::cout << '\n';
+    //пишем 0 В ОТВЕТ
+    answer.push_back(temp777);
+    for(int elm: answer) {
+        std::cout << elm << " LAME ";
+    }
+    std::cout << '\n';
+    temp777 = 0;
+    temp.push_back(a2[1]);
+    for(int elm: temp) {
+        std::cout << elm << " FUCK ";
+    }
+    std::cout << '\n';
+    while(IsOneBiggerTwo(temp, b2)) {
+        temp = Minus(temp,b2);
+        while(temp[0] == 0 && temp.size() > 0) temp.erase(temp.begin());
+        temp777++;
+    }
+    if(IsEqual(temp, b2)) {
+        temp = Minus(temp,b2);
+        temp777++;
+    }
+    for(int elm: temp) {
+        std::cout << elm << " FUCK ";
+    }
+    std::cout << '\n';
+    answer.push_back(temp777);
+    for(int elm: answer) {
+        std::cout << elm << " LAME ";
+    }
+    std::cout << '\n';
+    temp777 = 0;
+    temp.push_back(a2[2]);
+    for(int elm: temp) {
+        std::cout << elm << " FUCK ";
+    }
+    while(IsOneBiggerTwo(temp, b2)) {
+        temp = Minus(temp,b2);
+        while(temp[0] == 0 && temp.size() > 0) temp.erase(temp.begin());
+        temp777++;
+    }
+    if(IsEqual(temp, b2)) {
+        temp = Minus(temp,b2);
+        temp777++;
+    }
+    for(int elm: temp) {
+        std::cout << elm << " FUCK ";
+    }
+    std::cout << '\n';
+    answer.push_back(temp777);
+    for(int elm: answer) {
+        std::cout << elm << " LAME ";
+    }
+    //затем смотрим число v{a2[0], a2[1]}
+    /*while(IsOneBiggerTwo(temp, b2) ) {
+        temp = Minus(temp,b2);
+        temp777++;
+    }
+    if(IsEqual(temp, b2)) {
+        temp = Minus(temp,b2);
+        temp777++;
+    }
+    //v - b2[0] ровно 6 РАЗ
+    answer.insert(answer.begin(), temp777);
+    temp.clear();
+    temp777 = 0;
+    temp = {a2[1]};
     while(IsOneBiggerTwo(temp, b2) || IsEqual(temp, b1)) {
         temp = Minus(temp,b2);
         temp777++;
     }
-    answer.insert(answer.begin(), temp777);
-    temp777 = 0;
-    temp.push_back(a2[1]);
+    temp.push_back(a2[2]);
     for(int elm:temp) {
-        std::cout << elm;
+        std::cout << elm << ' ';
     }
     std::cout << '\n';
-    std::cout << "Guess, now we are doing F.E.A.R. 4?\n";
-    while(IsOneBiggerTwo(temp, b2) || IsEqual(temp, b1)) {
-    temp = Minus(temp,b2);
+    /*a2[0] = 0;
+    a2[1] = 0;
+    if(temp.size() > 1) {
+        a2[0] = temp[0];
+    }
+    if(temp.size() > 2) {
+        a2[1] = temp[1];
+    }
+    while(IsOneBiggerTwo(temp, b2) ) {
+        temp = Minus(temp,b2);
         temp777++;
     }
-    std::cout << "Guess, now we are doing F.E.A.R. 4?\n";
+    if(IsEqual(temp, b2)) {
+        temp = Minus(temp,b2);
+        temp777++;
+    }
+    answer.insert(answer.begin(), temp777);
+    for(int elm:answer) {
+        std::cout << elm << ' ';
+    }
+    std::cout << '\n';*/
 
 
 
