@@ -48,19 +48,19 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /home/stud-16/.local/share/JetBrains/Toolbox/apps/clion/bin/cmake/linux/x64/bin/cmake
+CMAKE_COMMAND = /var/home/shishik4life/Приложения/Toolbox/Apps/clion/bin/cmake/linux/x64/bin/cmake
 
 # The command to remove a file.
-RM = /home/stud-16/.local/share/JetBrains/Toolbox/apps/clion/bin/cmake/linux/x64/bin/cmake -E rm -f
+RM = /var/home/shishik4life/Приложения/Toolbox/Apps/clion/bin/cmake/linux/x64/bin/cmake -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/stud-16/Bloxin/RSAencryption
+CMAKE_SOURCE_DIR = /home/shishik4life/Коды/RSAencryption
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/stud-16/Bloxin/RSAencryption/cmake-build-debug
+CMAKE_BINARY_DIR = /home/shishik4life/Коды/RSAencryption/cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -68,7 +68,7 @@ CMAKE_BINARY_DIR = /home/stud-16/Bloxin/RSAencryption/cmake-build-debug
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "No interactive CMake dialog available..."
-	/home/stud-16/.local/share/JetBrains/Toolbox/apps/clion/bin/cmake/linux/x64/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+	/var/home/shishik4life/Приложения/Toolbox/Apps/clion/bin/cmake/linux/x64/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -78,7 +78,7 @@ edit_cache/fast: edit_cache
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Running CMake to regenerate build system..."
-	/home/stud-16/.local/share/JetBrains/Toolbox/apps/clion/bin/cmake/linux/x64/bin/cmake --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/var/home/shishik4life/Приложения/Toolbox/Apps/clion/bin/cmake/linux/x64/bin/cmake --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -87,9 +87,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/stud-16/Bloxin/RSAencryption/cmake-build-debug/CMakeFiles /home/stud-16/Bloxin/RSAencryption/cmake-build-debug//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/shishik4life/Коды/RSAencryption/cmake-build-debug/CMakeFiles /home/shishik4life/Коды/RSAencryption/cmake-build-debug//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/stud-16/Bloxin/RSAencryption/cmake-build-debug/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/shishik4life/Коды/RSAencryption/cmake-build-debug/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -117,6 +117,19 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named longone
+
+# Build rule for target.
+longone: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 longone
+.PHONY : longone
+
+# fast build rule for target.
+longone/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/longone.dir/build.make CMakeFiles/longone.dir/build
+.PHONY : longone/fast
+
+#=============================================================================
 # Target rules for targets named Codes
 
 # Build rule for target.
@@ -128,6 +141,30 @@ Codes: cmake_check_build_system
 Codes/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Codes.dir/build.make CMakeFiles/Codes.dir/build
 .PHONY : Codes/fast
+
+longone.o: longone.cpp.o
+.PHONY : longone.o
+
+# target to build an object file
+longone.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/longone.dir/build.make CMakeFiles/longone.dir/longone.cpp.o
+.PHONY : longone.cpp.o
+
+longone.i: longone.cpp.i
+.PHONY : longone.i
+
+# target to preprocess a source file
+longone.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/longone.dir/build.make CMakeFiles/longone.dir/longone.cpp.i
+.PHONY : longone.cpp.i
+
+longone.s: longone.cpp.s
+.PHONY : longone.s
+
+# target to generate assembly for a file
+longone.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/longone.dir/build.make CMakeFiles/longone.dir/longone.cpp.s
+.PHONY : longone.cpp.s
 
 main.o: main.cpp.o
 .PHONY : main.o
@@ -162,6 +199,10 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... Codes"
+	@echo "... longone"
+	@echo "... longone.o"
+	@echo "... longone.i"
+	@echo "... longone.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

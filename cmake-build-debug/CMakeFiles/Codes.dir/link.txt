@@ -1,1 +1,1 @@
-/usr/bin/c++ -g CMakeFiles/Codes.dir/main.cpp.o -o Codes
+/usr/bin/c++ -g CMakeFiles/Codes.dir/main.cpp.o -o Codes  liblongone.a
