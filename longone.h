@@ -7,23 +7,33 @@
 #include <ostream>
 #include <vector>
 namespace shishik4life {
+    void removezeros(std::vector<char>& vec);
+    void EqualizeSize(std::vector<char>& vec, std::vector<char>& vec2);
+    bool operator>(std::vector<char>& vec2);
     class longone {
+    private:
+        std::vector<char> data;
+        std::vector<char> PlusNums(std::vector<char> SecondOne, std::vector<char> FirstOne);
+        std::vector<char> MiunsNums(std::vector<char> SecondOne, std::vector<char> FirstOne);
     public:
         bool positive = true;
-        std::vector<char> data;
         longone();
-        longone(long long int num);
-        size_t size() const;
-        //std::vector<char>::iterator long_one::begin();
-        bool operator>(longone& Second);
-        bool operator==(const longone& Second);
-        longone operator-(longone& Second);
-        longone operator/(longone& Second);
-        longone operator%(longone& Second);
-        void pop_back();
-        void push_back(char a);
-        bool empty();
+        longone(std::string num);
+        //longone operator+(longone& SecondOne);
+        bool operator==(longone& SecondOne);
+        bool operator!=(longone& SecondOne);
+        bool operator>(longone& SecondOne);
+        bool operator>=(longone& SecondOne);
+        bool operator<(longone& SecondOne);
+        longone operator+(longone& SecondOne);
+        longone operator-(longone& SecondOne);
         longone operator*(longone& SecondOne);
+        longone operator/(longone SecondOne);
+        const char& operator()(size_t i) const
+        {
+            return data[i];
+        }
+        size_t size() const;
     };
 }
 
