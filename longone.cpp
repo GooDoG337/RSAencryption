@@ -3,6 +3,8 @@
 //
 
 #include "longone.h"
+
+#include <float.h>
 #include <iostream>
 #include <ostream>
 using namespace shishik4life;
@@ -89,6 +91,33 @@ longone::longone(std::string num) {
     removezeros(data);
 }
 
+longone::longone(int num) {
+    if(num < 0) {
+        positive = false;
+        num*=1;
+    }
+    size_t indx = 0;
+    data.clear();
+    while(num > 0) {
+        data.insert(data.begin(), num%10);
+        num/=10;
+    }
+}
+
+longone::operator int()  {
+    int num = 0;
+    int ten = 1;
+    for(int i = 1; i < data.size(); i++) {
+        ten*=10;
+    }
+    for(int i:data) {
+        num+=i*ten;
+        ten/=10;
+    }
+    if(!positive) return -num;
+    return num;
+}
+
 bool longone::operator==(longone& SecondOne) {
     if(positive != SecondOne.positive) {
         return false;
@@ -109,6 +138,8 @@ bool longone::operator!=(longone& SecondOne) {
 }
 
 bool longone::operator>(longone& SecondOne) {
+    removezeros(this->data);
+    removezeros(SecondOne.data);
     if(positive > SecondOne.positive) {
         return true;
     }
@@ -123,8 +154,13 @@ bool longone::operator>(longone& SecondOne) {
             return false;
         }
         else {
-            for(size_t i = 0; i < data.size(); i++) {
-                return data[i] > SecondOne.data[i];
+            for(int i = 0; i < data.size(); i++) {
+                if(data[i] > SecondOne.data[i]) {
+                    return true;
+                }
+                else if(data[i] < SecondOne.data[i]) {
+                    return false;
+                }
             }
         }
     }
@@ -136,11 +172,14 @@ bool longone::operator>(longone& SecondOne) {
             return true;
         }
         else {
-            for(size_t i = 0; i < data.size(); i++) {
-                return data[i] < SecondOne.data[i];
+            for(int i = data.size()-1; i >= 0; i--) {
+                if(data[i] < SecondOne.data[i]) {
+                    return true;
+                }
             }
         }
     }
+    return false;
 }
 
 bool longone::operator>=(longone& SecondOne) {
@@ -157,9 +196,9 @@ longone longone::operator+(longone& SecondOne) {
         result.data = PlusNums(SecondOne.data, data);
         result.positive = positive;
     }
-    else if(SecondOne.positive == false && SecondOne > data) {
+    else if(SecondOne.positive == false && SecondOne > *this) {
         result.data = MinusNums(SecondOne.data, data);
-
+        result.positive = SecondOne.positive;
     }
     else {
         result = SecondOne-*this;
@@ -176,7 +215,7 @@ longone longone::operator-(longone& SecondOne) {
             result.positive = false;
             return result;
         }
-        else {
+        else if (this->positive == true){
             if(*this>SecondOne) {
                 result.data = MinusNums(SecondOne.data, data);
                 result.positive = true;
@@ -223,12 +262,7 @@ longone longone::operator*(longone& SecondOne) {
             temp.push_back(0);
         }
         ten--;
-        while(temp.size() < result.data.size()) {
-            temp.insert(temp.begin(), 0);
-        }
-        while(temp.size() > result.data.size()) {
-            result.data.insert(result.data.begin(), 0);
-        }
+        EqualizeSize(result.data, temp);
         result.data.insert(result.data.begin(), 0);
         temp.insert(temp.begin(), 0);
         result.data = PlusNums(temp, result.data);
@@ -262,9 +296,32 @@ longone longone::operator/(longone SecondOne) {
         }
         answer.data.push_back(part);
     }
+    answer.positive = true;
     return answer;
 }
 
+longone longone::operator%(longone SecondOne) {
+    longone temp;
+    longone answer;
+    answer.data.clear();
+    temp.data.clear();
+    int part = 0;
+    size_t i = 0;
+    while(i < this->data.size()) {
+        part = 0;
+        for(i; temp < SecondOne && i < data.size(); i++) {
+            temp.data.push_back(this->data[i]);
+        }
+        temp.positive = true;
+        while(temp >= SecondOne) {
+            temp = temp - SecondOne;
+            part++;
+        }
+        answer.data.push_back(part);
+    }
+    temp.positive = true;
+    return temp;
+}
 size_t longone::size() const {
     return data.size();
 }
