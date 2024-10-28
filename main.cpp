@@ -5,14 +5,14 @@
 using shishik4life::longone;
 using std::cout;
 int main() {
-    longone p("863");
-    longone q("647");
+    longone p("479");
+    longone q("17");
     longone one("1");
     longone Fi = (p-1)*(q-1);
     std::cout << "Fi=" << Fi << std::endl;
     longone N=p*q;
     std::cout << "N=" <<  N << std::endl;
-    longone e("65537");
+    longone e("3");
     std::cout << "e=" << e << std::endl;
 
     longone a = Fi;
@@ -47,11 +47,24 @@ int main() {
     std::string message("J");
     std::vector<longone> v;
     std::string decrypted;
+    longone two("2");
+    std::cout << (e-one)/two << '\n';
+    longone temp33 = message[0];
+    /*for(longone i("1"); i < (e-one)/two; i=i+one) {
+        temp33 = temp33*message[0];
+        temp33 = temp33%N;
+    }
+    temp33 = temp33*temp33;
+    temp33 = temp33%N;
+    temp33 = temp33*message[0];
+    temp33 = temp33%N;
+    cout << char(temp33);*/
     for(int elm:message) {
         longone temp33 = elm % N;
         for(longone i("1"); i < e; i=i+one) {
             temp33 = temp33*elm;
             temp33 = temp33%N;
+            std::cout << temp33 << '\n';
         }
         v.push_back(temp33);
     }
@@ -65,4 +78,3 @@ int main() {
     }
     return 0;
 }
-

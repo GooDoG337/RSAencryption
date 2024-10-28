@@ -8,7 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/stud-16/Bloxin/RSAencryption/main.cpp" "CMakeFiles/Codes.dir/main.cpp.o" "gcc" "CMakeFiles/Codes.dir/main.cpp.o.d"
+  "/home/stud-16/Bloxin/RSAencryption/longone.cpp" "CMakeFiles/longone.dir/longone.cpp.o" "gcc" "CMakeFiles/longone.dir/longone.cpp.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

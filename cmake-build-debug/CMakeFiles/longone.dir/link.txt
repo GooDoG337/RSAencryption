@@ -1,0 +1,2 @@
+/usr/bin/ar qc liblongone.a CMakeFiles/longone.dir/longone.cpp.o
+/usr/bin/ranlib liblongone.a
