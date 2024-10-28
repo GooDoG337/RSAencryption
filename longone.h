@@ -26,11 +26,16 @@ namespace shishik4life {
         bool operator>(longone& SecondOne);
         bool operator>=(longone& SecondOne);
         bool operator<(longone& SecondOne);
-        longone operator+(longone& SecondOne);
-        longone operator-(longone& SecondOne);
-        longone operator*(longone& SecondOne);
+        longone operator+(longone SecondOne);
+        longone operator+(int sec);
+        void operator++(int);
+        longone operator-(longone SecondOne);
+        longone operator-(int Second);
+        longone operator*(longone SecondOne);
+        longone operator*(int SecondOne);
         longone operator/(longone SecondOne);
         longone operator%(longone SecondOne);
+        longone isEven();
         const char& operator()(size_t i) const
         {
             return data[i];

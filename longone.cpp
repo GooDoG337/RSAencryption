@@ -13,6 +13,10 @@ void shishik4life::removezeros(std::vector<char>& vec) {
     while(vec[0] == 0 && vec.size() > 1) {
         vec.erase(vec.begin());
     }
+    if(vec.empty()) {
+        vec.push_back(0);
+
+    }
 }
 
 void shishik4life::EqualizeSize(std::vector<char>& vec, std::vector<char>& vec2) {
@@ -26,12 +30,6 @@ void shishik4life::EqualizeSize(std::vector<char>& vec, std::vector<char>& vec2)
 
 
 std::vector<char> longone::PlusNums(std::vector<char> SecondOne, std::vector<char> FirstOne) {
-    if(FirstOne.size() > SecondOne.size()) {
-        FirstOne.insert(FirstOne.begin(), 0);
-    }
-    else {
-        SecondOne.insert(SecondOne.begin(), 0);
-    }
     EqualizeSize(FirstOne, SecondOne);
     std::vector<char> result(FirstOne.size());
     for(size_t i = 0; i < result.size(); i++) {
@@ -48,12 +46,6 @@ std::vector<char> longone::PlusNums(std::vector<char> SecondOne, std::vector<cha
 }
 
 std::vector<char> MinusNums(std::vector<char> SecondOne, std::vector<char> FirstOne) {
-    if(FirstOne.size() > SecondOne.size()) {
-        FirstOne.insert(FirstOne.begin(), 0);
-    }
-    else {
-        SecondOne.insert(SecondOne.begin(), 0);
-    }
     EqualizeSize(FirstOne, SecondOne);
     std::vector<char> result(FirstOne.size());
     for(size_t i = 0; i <= FirstOne.size(); i++) {
@@ -190,60 +182,109 @@ bool longone::operator<(longone& SecondOne) {
     return !(*this >= SecondOne);
 }
 
-longone longone::operator+(longone& SecondOne) {
+longone longone::operator+(longone SecondOne) {
     longone result;
     if(SecondOne.positive == positive) {
         result.data = PlusNums(SecondOne.data, data);
         result.positive = positive;
     }
-    else if(SecondOne.positive == false && SecondOne > *this) {
-        result.data = MinusNums(SecondOne.data, data);
-        result.positive = SecondOne.positive;
+    else if(SecondOne.positive == false) {
+        SecondOne.positive = true;
+        if(SecondOne > *this) {
+            result.data = MinusNums(data, SecondOne.data);
+            result.positive = false;
+        }
+        else {
+            result.data = MinusNums(SecondOne.data, data);
+            result.positive = true;
+        }
+        SecondOne.positive = false;
     }
-    else {
-        result = SecondOne-*this;
+    else if(SecondOne.positive == true) {
+        positive = true;
+        if(SecondOne > *this) {
+            result.data = MinusNums(data, SecondOne.data);
+            result.positive = true;
+        }
+        else {
+            result.data = MinusNums(SecondOne.data, data);
+            result.positive = false;
+        }
+        positive = false;
+    }
+    removezeros(result.data);
+    if(result.data.size() == 1 && result.data[0] == 0) {
+        result.positive = true;
     }
     return result;
 }
 
-longone longone::operator-(longone& SecondOne) {
-    EqualizeSize(this->data, SecondOne.data);
-    longone result;
-    if(SecondOne.positive == true) {
-        if(this->positive == false) {
-            result.data = PlusNums(SecondOne.data, data);
-            result.positive = false;
-            return result;
-        }
-        else if (this->positive == true){
-            if(*this>SecondOne) {
-                result.data = MinusNums(SecondOne.data, data);
-                result.positive = true;
-                return result;
-            }
-            else {
-                result.data = MinusNums(data, SecondOne.data);
-                result.positive = false;
-                return result;
+longone longone::operator+(int sec) {
+    longone SecondOne(sec);
+    return SecondOne + *this;
+}
+void longone::operator++(int) {
+    data[data.size()-1]++;
+    for(int i = data.size()-1; i >= 0; i--) {
+        if(data[i] > 9) {
+            if(i != 0) {
+                data[i-1]+=data[i]/10;
+                data[i]%=10;
+
+            } else {
+                data.insert(data.begin(), data[i]/10);
+                data[1]%=10;
+                break;
             }
         }
     }
-    else {
-        if(this->positive == true) {
-            result.data = PlusNums(SecondOne.data, data);
+
+}
+longone longone::operator-(longone SecondOne) {
+    EqualizeSize(this->data, SecondOne.data);
+    longone result;
+    if(this->positive == true && SecondOne.positive == true) {
+        if(*this>SecondOne) {
+            result.data = MinusNums(SecondOne.data, data);
             result.positive = true;
             return result;
         }
         else {
-            result.data = PlusNums(SecondOne.data, data);
+            result.data = MinusNums(data, SecondOne.data);
             result.positive = false;
             return result;
         }
     }
-    return result;
+    else if(this->positive == false && SecondOne.positive == true) {
+        result.data = PlusNums(SecondOne.data, data);
+        result.positive = false;
+        return result;
+    }
+    else if(this->positive == true && SecondOne.positive == false) {
+        result.data = PlusNums(SecondOne.data, data);
+        result.positive = true;
+        return result;
+    }
+    else if(this->positive == false && SecondOne.positive == false) {
+        if(SecondOne<*this) {
+            result.data = MinusNums(data, SecondOne.data);
+            result.positive = false;
+            return result;
+        }
+        else {
+            result.data = MinusNums(data, SecondOne.data);
+            result.positive = true;
+            return result;
+        }
+    }
 }
 
-longone longone::operator*(longone& SecondOne) {
+longone longone::operator-(int Second) {
+    longone sec = Second;
+    return *this - sec;
+}
+
+longone longone::operator*(longone SecondOne) {
     longone result;
     result.data.resize(size()+SecondOne.data.size());
     std::vector<char> temp;
@@ -277,6 +318,11 @@ longone longone::operator*(longone& SecondOne) {
     return result;
 }
 
+longone longone::operator*(int SecondOne) {
+    longone sec = SecondOne;
+    return *this * sec;
+}
+
 longone longone::operator/(longone SecondOne) {
     longone temp;
     longone answer;
@@ -299,7 +345,9 @@ longone longone::operator/(longone SecondOne) {
     answer.positive = true;
     return answer;
 }
-
+longone longone::isEven() {
+    return data[data.size()-1]%2;
+}
 longone longone::operator%(longone SecondOne) {
     longone temp;
     longone answer;
@@ -314,7 +362,7 @@ longone longone::operator%(longone SecondOne) {
         }
         temp.positive = true;
         while(temp >= SecondOne) {
-            temp = temp - SecondOne;
+            temp = (temp - SecondOne);
             part++;
         }
         answer.data.push_back(part);
@@ -322,6 +370,7 @@ longone longone::operator%(longone SecondOne) {
     temp.positive = true;
     return temp;
 }
+
 size_t longone::size() const {
     return data.size();
 }
@@ -332,7 +381,7 @@ std::ostream& operator<<(std::ostream& out, const longone& num)
         out << '-';
     }
     for(size_t i = 0; i < num.size(); i++) {
-        out << int(num(i));
+        out << int(num(i));;
     }
     return out;
 }
