@@ -61,13 +61,22 @@ int main() {
     cout << char(temp33);*/
     for(int elm:message) {
         longone temp33 = elm % N;
-        for(longone i("1"); i < e; i=i+one) {
+        /*for(longone i("1"); i < e; i=i+one) {
+            std::cout << temp33 << '\n';
+            temp33 = temp33*elm;
+            temp33 = temp33%N;
+            std::cout << temp33 << '\n';
+        }*/
+        for(longone i("1"); i < (e-1)/2; i=i+one) {
             temp33 = temp33*elm;
             temp33 = temp33%N;
             std::cout << temp33 << '\n';
         }
         v.push_back(temp33);
     }
+    //74
+    //5476
+    //6217
     for(auto i2:v) {
         longone temp33 = i2 % N;
         for(longone i("1"); i < d; i=i+one) {
