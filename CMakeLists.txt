@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.29)
+cmake_minimum_required(VERSION 3.28)
 project(Codes)
 set(CMAKE_CXX_STANDARD 20)
 add_library(longone longone.cpp)
