@@ -16,6 +16,7 @@ namespace shishik4life {
         std::vector<char> MiunsNums(std::vector<char> SecondOne, std::vector<char> FirstOne);
     public:
         bool positive = true;
+        ~longone();
         longone();
         longone(std::string num);
         longone(int num);
@@ -31,11 +32,13 @@ namespace shishik4life {
         void operator++(int);
         longone operator-(longone SecondOne);
         longone operator-(int Second);
-        longone operator*(longone SecondOne);
+        longone operator*(const longone& SecondOne);
         longone operator*(int SecondOne);
         longone operator/(longone SecondOne);
-        longone operator%(longone SecondOne);
-        longone isEven();
+        longone operator/(int SecondOne);
+        longone operator%(longone SecondOne) const;
+        longone operator%(int SecondOne) const;
+        longone isEven() const;
         const char& operator()(size_t i) const
         {
             return data[i];

@@ -3,9 +3,6 @@
 //
 
 #include "longone.h"
-
-#include <float.h>
-#include <iostream>
 #include <ostream>
 using namespace shishik4life;
 
@@ -68,6 +65,9 @@ longone::longone() {
     data = {0};
 }
 
+longone::~longone() {
+    data.clear();
+}
 longone::longone(std::string num) {
     if(num[0] == '-') {
         positive = false;
@@ -129,6 +129,7 @@ bool longone::operator!=(longone& SecondOne) {
     return !(*this==SecondOne);
 }
 
+
 bool longone::operator>(longone& SecondOne) {
     removezeros(this->data);
     removezeros(SecondOne.data);
@@ -173,6 +174,7 @@ bool longone::operator>(longone& SecondOne) {
     }
     return false;
 }
+
 
 bool longone::operator>=(longone& SecondOne) {
     return (*this > SecondOne || *this == SecondOne);
@@ -223,6 +225,7 @@ longone longone::operator+(int sec) {
     longone SecondOne(sec);
     return SecondOne + *this;
 }
+
 void longone::operator++(int) {
     data[data.size()-1]++;
     for(int i = data.size()-1; i >= 0; i--) {
@@ -230,7 +233,6 @@ void longone::operator++(int) {
             if(i != 0) {
                 data[i-1]+=data[i]/10;
                 data[i]%=10;
-
             } else {
                 data.insert(data.begin(), data[i]/10);
                 data[1]%=10;
@@ -238,8 +240,8 @@ void longone::operator++(int) {
             }
         }
     }
-
 }
+
 longone longone::operator-(longone SecondOne) {
     EqualizeSize(this->data, SecondOne.data);
     longone result;
@@ -247,36 +249,32 @@ longone longone::operator-(longone SecondOne) {
         if(*this>SecondOne) {
             result.data = MinusNums(SecondOne.data, data);
             result.positive = true;
-            return result;
         }
         else {
             result.data = MinusNums(data, SecondOne.data);
             result.positive = false;
-            return result;
         }
     }
     else if(this->positive == false && SecondOne.positive == true) {
         result.data = PlusNums(SecondOne.data, data);
         result.positive = false;
-        return result;
     }
     else if(this->positive == true && SecondOne.positive == false) {
         result.data = PlusNums(SecondOne.data, data);
         result.positive = true;
-        return result;
     }
     else if(this->positive == false && SecondOne.positive == false) {
         if(SecondOne<*this) {
             result.data = MinusNums(data, SecondOne.data);
             result.positive = false;
-            return result;
         }
         else {
             result.data = MinusNums(data, SecondOne.data);
             result.positive = true;
-            return result;
         }
     }
+    return result;
+
 }
 
 longone longone::operator-(int Second) {
@@ -284,7 +282,7 @@ longone longone::operator-(int Second) {
     return *this - sec;
 }
 
-longone longone::operator*(longone SecondOne) {
+longone longone::operator*(const longone& SecondOne) {
     longone result;
     result.data.resize(size()+SecondOne.data.size());
     std::vector<char> temp;
@@ -330,17 +328,18 @@ longone longone::operator/(longone SecondOne) {
     temp.data.clear();
     int part = 0;
     size_t i = 0;
+    int something = 0;
     while(i < this->data.size()) {
-        int howmany = 0;
         part = 0;
-        for(i; temp < SecondOne && i < data.size(); i++) {
+        something = 0;
+        for(i; temp < SecondOne && i <data.size(); i++) {
+            something++;
             temp.data.push_back(this->data[i]);
-            howmany++;
-            if(temp.size() == SecondOne.size() && i != SecondOne.size()) {
+            if(something > 1) {
                 answer.data.push_back(0);
             }
+            removezeros(temp.data);
         }
-        howmany = 0;
         while(temp >= SecondOne) {
             temp = temp - SecondOne;
             part++;
@@ -352,30 +351,37 @@ longone longone::operator/(longone SecondOne) {
     removezeros(answer.data);
     return answer;
 }
-longone longone::isEven() {
-    return data[data.size()-1]%2;
+
+longone longone::operator/(int SecondOne) {
+    longone sec = SecondOne;
+    return *this / sec;
 }
-longone longone::operator%(longone SecondOne) {
+
+longone longone::isEven() const {
+    return !(data[data.size()-1]%2);
+}
+
+longone longone::operator%(longone SecondOne) const {
     longone temp;
-    longone answer;
-    answer.data.clear();
     temp.data.clear();
-    int part = 0;
     size_t i = 0;
     while(i < this->data.size()) {
-        part = 0;
-        for(i; temp < SecondOne && i < data.size(); i++) {
+        for(i; temp < SecondOne && i <data.size(); i++) {
             temp.data.push_back(this->data[i]);
+            removezeros(temp.data);
+        }
+        while(temp >= SecondOne) {
+            temp = temp - SecondOne;
         }
         temp.positive = true;
-        while(temp >= SecondOne) {
-            temp = (temp - SecondOne);
-            part++;
-        }
-        answer.data.push_back(part);
     }
-    temp.positive = true;
     return temp;
+}
+
+
+longone longone::operator%(int SecondOne) const {
+    longone sec = SecondOne;
+    return *this % sec;
 }
 
 size_t longone::size() const {
@@ -388,7 +394,7 @@ std::ostream& operator<<(std::ostream& out, const longone& num)
         out << '-';
     }
     for(size_t i = 0; i < num.size(); i++) {
-        out << int(num(i));;
+        out << int(num(i));
     }
     return out;
 }
