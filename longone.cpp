@@ -331,10 +331,16 @@ longone longone::operator/(longone SecondOne) {
     int part = 0;
     size_t i = 0;
     while(i < this->data.size()) {
+        int howmany = 0;
         part = 0;
         for(i; temp < SecondOne && i < data.size(); i++) {
             temp.data.push_back(this->data[i]);
+            howmany++;
+            if(temp.size() == SecondOne.size() && i != SecondOne.size()) {
+                answer.data.push_back(0);
+            }
         }
+        howmany = 0;
         while(temp >= SecondOne) {
             temp = temp - SecondOne;
             part++;
@@ -343,6 +349,7 @@ longone longone::operator/(longone SecondOne) {
         answer.data.push_back(part);
     }
     answer.positive = true;
+    removezeros(answer.data);
     return answer;
 }
 longone longone::isEven() {

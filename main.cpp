@@ -26,8 +26,16 @@ int main() {
     longone r;
     longone d;
 
-    /*longone k(1);
-    longone x1 = 0, x2 = 1, y1 = 1, y2 = 0;
+    longone k(1);
+    d = ((k*Fi)+1)/e;
+    while(((k*Fi)+1)%e) {
+        d= ((k*Fi)+1);
+        k++;
+        d= d/e;
+        std::cout << "d = " << d << '\n';
+    }
+    return 0;
+    /*longone x1 = 0, x2 = 1, y1 = 1, y2 = 0;
     while(b > 0) {
         q2 = a/b;
         r = a-(q2*b);
