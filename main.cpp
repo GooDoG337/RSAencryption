@@ -1,6 +1,7 @@
 #include <iostream>
 #include "longone.h"
 #include <random>
+#include <algorithm>
 using shishik4life::longone;
 using std::cout;
 
@@ -83,17 +84,28 @@ int main() {
     d= d/e;
     cout << "d = " << d << '\n';
 
-    std::string message;
-    std::vector<longone> v;
-    cout << "Enter message:";
-	std::getline(std::cin, message);
-    for(const char& elm:message) {
-        v.push_back( FastPow(elm, elm, N, e));
-        std::cout << v[v.size()-1] << '\n'; //Если не переносить строку, он, похоже, буферизирует все cout-ы, чтоб вывести всё после окончания цикла, что может дать ложное предположение что программа зависла.
+    std::string message = "~~~~~~~~~~~~~~~~~~~~~~";
+
+
+    std::reverse(message.begin(), message.end());
+    longone mess_num;
+    std::vector<std::string> encrypted_blocks, decrypted_blocks;
+    longone encrypted, decrypted;
+    for(auto i:message) {
+        mess_num = mess_num*1000+i;
     }
+    std::cout << mess_num << '\n';
+    /*cout << "Enter message:";
+	std::getline(std::cin, message);*/
+    encrypted = FastPow(mess_num, mess_num, N, e);
+    cout << "Encrypted: " << encrypted << '\n';
     message.clear();
-    for(const longone& elm:v) {
-        std::cout << char(FastPow(elm, elm, N, d)) << '\n'; //То же самое, что на строке 56
+    decrypted = FastPow(encrypted, encrypted, N, d);
+    cout << "Dencrypted: " << decrypted << '\n';
+    longone zero("0");
+    while(decrypted > zero) {
+        std::cout << char(decrypted%1000);
+        decrypted = decrypted / 1000;
     }
     return 0;
 }
