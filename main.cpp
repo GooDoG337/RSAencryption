@@ -84,28 +84,51 @@ int main() {
     d= d/e;
     cout << "d = " << d << '\n';
 
-    std::string message = "~~~~~~~~~~~~~~~~~~~~~~";
+    std::string message = "A very long text. That I can't barely see. What's about fix?";
 
 
-    std::reverse(message.begin(), message.end());
+    //std::reverse(message.begin(), message.end());
     longone mess_num;
-    std::vector<std::string> encrypted_blocks, decrypted_blocks;
+    std::vector<std::string> message_separate {""};
+    std::vector<longone> mes_nums;
+    std::vector<longone> encrypted_blocks;
+    std::vector<longone> decrypted_blocks;
     longone encrypted, decrypted;
-    for(auto i:message) {
-        mess_num = mess_num*1000+i;
+    int indx = 0;
+    for(int i = 0; i < message.size(); i++) {
+        message_separate[indx].push_back(message[i]);
+        if(i%8==0 && i != 0) {
+            message_separate.emplace_back("");
+            indx++;
+        }
     }
-    std::cout << mess_num << '\n';
-    /*cout << "Enter message:";
-	std::getline(std::cin, message);*/
-    encrypted = FastPow(mess_num, mess_num, N, e);
-    cout << "Encrypted: " << encrypted << '\n';
-    message.clear();
-    decrypted = FastPow(encrypted, encrypted, N, d);
-    cout << "Dencrypted: " << decrypted << '\n';
     longone zero("0");
+
+    int q33 = 0;
+    for(auto elm: message_separate) {
+        mes_nums.push_back(zero);
+        for(auto i:elm) {
+            mes_nums[q33] = mes_nums[q33]*1000+i;
+        }
+        q33++;
+    }
+    q33 = 0;
+    for(const auto& i:mes_nums) {
+        encrypted_blocks.push_back(FastPow(i, i, N, e));
+    }
+    cout << "Encrypted: ";
+    for(const auto& i:encrypted_blocks) {
+        decrypted_blocks.push_back(FastPow(i, i, N, d));
+        std::cout << i << ' ';
+    }
+    cout << "Dencrypted: ";
+    for(const auto& i:decrypted_blocks) {
+        std::cout << i << ' ';
+    }
+    /*longone zero("0");
     while(decrypted > zero) {
         std::cout << char(decrypted%1000);
         decrypted = decrypted / 1000;
-    }
+    }*/
     return 0;
 }
