@@ -1,4 +1,4 @@
-/home/stud-16/Bloxin/RSAencryption/cmake-build-debug/CMakeFiles/longone.dir
-/home/stud-16/Bloxin/RSAencryption/cmake-build-debug/CMakeFiles/Codes.dir
-/home/stud-16/Bloxin/RSAencryption/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/stud-16/Bloxin/RSAencryption/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/shishik4life/Коды/RSAencryption/cmake-build-debug/CMakeFiles/longone.dir
+/home/shishik4life/Коды/RSAencryption/cmake-build-debug/CMakeFiles/Codes.dir
+/home/shishik4life/Коды/RSAencryption/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/shishik4life/Коды/RSAencryption/cmake-build-debug/CMakeFiles/rebuild_cache.dir

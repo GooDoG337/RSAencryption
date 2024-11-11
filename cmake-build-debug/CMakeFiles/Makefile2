@@ -45,19 +45,19 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /home/stud-16/.local/share/JetBrains/Toolbox/apps/clion/bin/cmake/linux/x64/bin/cmake
+CMAKE_COMMAND = /var/home/shishik4life/Приложения/Toolbox/Apps/clion/bin/cmake/linux/x64/bin/cmake
 
 # The command to remove a file.
-RM = /home/stud-16/.local/share/JetBrains/Toolbox/apps/clion/bin/cmake/linux/x64/bin/cmake -E rm -f
+RM = /var/home/shishik4life/Приложения/Toolbox/Apps/clion/bin/cmake/linux/x64/bin/cmake -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/stud-16/Bloxin/RSAencryption
+CMAKE_SOURCE_DIR = /home/shishik4life/Коды/RSAencryption
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/stud-16/Bloxin/RSAencryption/cmake-build-debug
+CMAKE_BINARY_DIR = /home/shishik4life/Коды/RSAencryption/cmake-build-debug
 
 #=============================================================================
 # Directory level rules for the build root directory
@@ -83,14 +83,14 @@ clean: CMakeFiles/Codes.dir/clean
 CMakeFiles/longone.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/longone.dir/build.make CMakeFiles/longone.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/longone.dir/build.make CMakeFiles/longone.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/stud-16/Bloxin/RSAencryption/cmake-build-debug/CMakeFiles --progress-num=3,4 "Built target longone"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/shishik4life/Коды/RSAencryption/cmake-build-debug/CMakeFiles --progress-num=3,4 "Built target longone"
 .PHONY : CMakeFiles/longone.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/longone.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/stud-16/Bloxin/RSAencryption/cmake-build-debug/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/shishik4life/Коды/RSAencryption/cmake-build-debug/CMakeFiles 2
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/longone.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/stud-16/Bloxin/RSAencryption/cmake-build-debug/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/shishik4life/Коды/RSAencryption/cmake-build-debug/CMakeFiles 0
 .PHONY : CMakeFiles/longone.dir/rule
 
 # Convenience name for target.
@@ -109,14 +109,14 @@ CMakeFiles/longone.dir/clean:
 CMakeFiles/Codes.dir/all: CMakeFiles/longone.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Codes.dir/build.make CMakeFiles/Codes.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Codes.dir/build.make CMakeFiles/Codes.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/stud-16/Bloxin/RSAencryption/cmake-build-debug/CMakeFiles --progress-num=1,2 "Built target Codes"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/shishik4life/Коды/RSAencryption/cmake-build-debug/CMakeFiles --progress-num=1,2 "Built target Codes"
 .PHONY : CMakeFiles/Codes.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/Codes.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/stud-16/Bloxin/RSAencryption/cmake-build-debug/CMakeFiles 4
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/shishik4life/Коды/RSAencryption/cmake-build-debug/CMakeFiles 4
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/Codes.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/stud-16/Bloxin/RSAencryption/cmake-build-debug/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/shishik4life/Коды/RSAencryption/cmake-build-debug/CMakeFiles 0
 .PHONY : CMakeFiles/Codes.dir/rule
 
 # Convenience name for target.

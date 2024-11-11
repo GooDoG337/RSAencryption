@@ -73,7 +73,6 @@ int main() {
 
     const longone N = p*q;
     cout << "N = " << N << '\n';
-
     const longone e = 691;
     cout << "e = " << e << '\n';
 
@@ -105,25 +104,38 @@ int main() {
     longone zero("0");
 
     int q33 = 0;
-    for(auto elm: message_separate) {
+    for(const auto& elm: message_separate) {
         mes_nums.push_back(zero);
         for(auto i:elm) {
             mes_nums[q33] = mes_nums[q33]*1000+i;
         }
         q33++;
     }
-    q33 = 0;
     for(const auto& i:mes_nums) {
         encrypted_blocks.push_back(FastPow(i, i, N, e));
     }
     cout << "Encrypted: ";
     for(const auto& i:encrypted_blocks) {
         decrypted_blocks.push_back(FastPow(i, i, N, d));
-        std::cout << i << ' ';
+        std::cout << i << '\n';
     }
-    cout << "Dencrypted: ";
+    cout << "\nDencrypted: ";
     for(const auto& i:decrypted_blocks) {
         std::cout << i << ' ';
+    }
+    std::cout << '\n';
+    std::vector<std::string> temporary;
+    int index = 0;
+    for(auto& i:decrypted_blocks) {
+        temporary.emplace_back("");
+        while(i != zero) {
+            temporary[index].insert(temporary[index].begin(), char(i%1000));
+            i = i/1000;
+        }
+        index++;
+    }
+    for(const auto& i:temporary) {
+        std::cout << i;
     }
     /*longone zero("0");
     while(decrypted > zero) {
